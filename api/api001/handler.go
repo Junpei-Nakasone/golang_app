@@ -1,16 +1,21 @@
 package api001
 
 import (
+	"go_app/environment/db"
 	"net/http"
 
-	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
+
+	// mysql driver
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 // TaskHandler gets Db
-type TaskHandler struct {
-	Db *gorm.DB
-}
+// type TaskHandler struct {
+// 	Db *gorm.DB
+// }
+
+// var db *gorm.DB
 
 // Users 構造体
 type Users struct {
@@ -19,8 +24,17 @@ type Users struct {
 	age  int    `json:"age"`
 }
 
+var err error
+
 // Test returns json
-func (handler *TaskHandler) Test(c echo.Context) error {
-	handler.Db.Find(&Users)
-	return c.JSON(http.StatusOK, &Users)
+func Test(c echo.Context) error {
+	db := db.CreateDBConnection()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	var users []Users
+	db.Find(&users)
+	return c.JSON(http.StatusOK, &users)
 }

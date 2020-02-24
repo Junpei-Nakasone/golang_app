@@ -21,7 +21,7 @@ var once sync.Once
 
 // CreateDBConnection create conn
 func CreateDBConnection() *gorm.DB {
-	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3306)/mysql")
+	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3306)/go_app")
 	// if db.DB().Ping() != nil{
 	// 	panic(err)
 	// }
