@@ -2,6 +2,7 @@ package router
 
 import (
 	"go_app/api/api001"
+	"go_app/api/api002"
 
 	"github.com/labstack/echo"
 )
@@ -10,6 +11,7 @@ import (
 func NewRouter() *echo.Echo {
 	e := echo.New()
 	e.GET("/", api001.Test)
+	e.POST("/newUser", api002.NewUser)
 
 	return e
 }

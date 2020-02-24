@@ -10,18 +10,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// TaskHandler gets Db
-// type TaskHandler struct {
-// 	Db *gorm.DB
-// }
-
-// var db *gorm.DB
-
 // Users 構造体
 type Users struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
-	age  int    `json:"age"`
+	Age  int    `json:"age"`
 }
 
 var err error
