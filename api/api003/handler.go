@@ -1,4 +1,4 @@
-package api002
+package api003
 
 import (
 	"go_app/environment/db"
@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-// Users 構造体
+// Users define user
 type Users struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -16,8 +16,8 @@ type Users struct {
 
 var err error
 
-// NewUser add new user
-func NewUser(c echo.Context) error {
+// UpdateUser updates user
+func UpdateUser(c echo.Context) error {
 	db := db.CreateDBConnection()
 	if err != nil {
 		return err
@@ -28,7 +28,10 @@ func NewUser(c echo.Context) error {
 
 	c.Bind(&users)
 
-	db.Create(&Users{ID: users.ID, Name: users.Name, Age: users.Age})
+	db.Where("name = ?", users.Name).Find(&users)
 
-	return c.JSON(http.StatusCreated, "new user added")
+	// return c.JSON(http.StatusOK, &users)
+	db.Save(&Users{ID: users.ID, Name: users.Name, Age: users.Age})
+
+	return c.JSON(http.StatusNoContent, "User updated")
 }
