@@ -28,7 +28,15 @@ func NewUser(c echo.Context) error {
 
 	c.Bind(&users)
 
-	db.Create(&Users{ID: users.ID, Name: users.Name, Age: users.Age})
+	tx := db.Begin()
+	// defer func()も必要？
+	if err := tx.Create(&Users{ID: users.ID, Name: users.Name, Age: users.Age}).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	tx.Commit()
+
+	// db.Create(&Users{ID: users.ID, Name: users.Name, Age: users.Age})
 
 	return c.JSON(http.StatusCreated, "new user added")
 }
