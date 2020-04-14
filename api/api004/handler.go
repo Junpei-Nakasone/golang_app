@@ -1,8 +1,8 @@
 package api004
 
 import (
-	"go_app/environment/db"
 	"net/http"
+	"github.com/todolist_ver2/environment/db"
 
 	"github.com/labstack/echo"
 )
@@ -15,7 +15,6 @@ type Users struct {
 }
 
 var err error
-
 
 // DeleteUser delete user
 func DeleteUser(c echo.Context) error {

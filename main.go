@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_app/environment/router"
+	"github.com/todolist_ver2/environment/router"
 )
 
 func main() {
